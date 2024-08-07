@@ -29,6 +29,13 @@ module.exports = {
       },
       port: 3030,
       historyApiFallback: true,
+      proxy: {
+        '/api': {
+             target: 'http://localhost:3030',
+             router: () => 'http://localhost:3001',
+             logLevel: 'debug' /*optional*/
+        }
+     }
     }
 }
 

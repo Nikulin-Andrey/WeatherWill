@@ -10,7 +10,20 @@ type item = {
 
 const AdminPage = () => {
 
-    const [items, setItems] = useState<item[]>([]);
+    const [items, setItems] = useState<item[]>([
+        {
+            adress: "Минск",
+            dateAndTime: "2023-06-04T13:03",
+            temperature: "18",
+            sky: "Ясно",
+        },
+        {
+            adress: "Минск",
+            dateAndTime: "2023-06-03T12:10",
+            temperature: "14",
+            sky: "Частично облачно",
+        }
+    ]);
     const [newItem, setNewItems] = useState<item>({
         adress: "",
         dateAndTime: "",
@@ -27,7 +40,6 @@ const AdminPage = () => {
         <>
             <Box maxWidth='container.md' mx="auto" p={ 4 } boxShadow='base' borderRadius='xl' my={ 4 }>
                 <Input value={ newItem.adress } onChange={ (e) => setNewItems((item) => ({ ...item, adress: e.target.value}))} mb={ 2 } placeholder='Введите адрес'/>
-                <Text>Долгота: 21 Широта: 54</Text>
                 <Input value={ newItem.dateAndTime } onChange={ (e) => setNewItems((item) => ({ ...item, dateAndTime: e.target.value}))} mb={ 2 } placeholder='Введите дату и время' type='datetime-local' />
                 <Input value={ newItem.temperature } onChange={ (e) => setNewItems((item) => ({ ...item, temperature: e.target.value}))} mb={ 2 } placeholder='Введите температуру'/>
                 <Select value={ newItem.sky } onChange={ (e) => setNewItems((item) => ({ ...item, sky: e.target.value}))} mb={ 2 } defaultValue='clear'>
@@ -54,23 +66,23 @@ const AdminPage = () => {
                             <Box >
                                 <Box p={ 2 } boxShadow='base' borderRadius='xl'>
                                     <Heading size='md'>OpenWeather</Heading>
-                                    <Text>Достоверность: 80%</Text>
+                                    <Text>Достоверность: 60%</Text>
                                     <Text>Адресс: {adress}</Text>
-                                    <Text>Температура: {temperature}</Text>
-                                    <Text>{sky}</Text>
+                                    <Text>Температура: {Number(temperature) + 3}</Text>
+                                    <Text></Text>
                                 </Box>
                                 <Box p={ 2 } boxShadow='base' borderRadius='xl'>
                                     <Heading size='md'>AccuWeather</Heading>
-                                    <Text>Достоверность: 70%</Text>
+                                    <Text>Достоверность: 60%</Text>
                                     <Text>Адресс: {adress}</Text>
-                                    <Text>Температура: {temperature}</Text>
+                                    <Text>Температура: {Number(temperature) - 3}</Text>
                                     <Text>{sky}</Text>
                                 </Box>
                                 <Box p={ 2 } boxShadow='base' borderRadius='xl'>
-                                    <Heading size='md'>DarkSkye</Heading>
+                                    <Heading size='md'>Stormglass</Heading>
                                     <Text>Достоверность: 90%</Text>
                                     <Text>Адресс: {adress}</Text>
-                                    <Text>Температура: {temperature}</Text>
+                                    <Text>Температура: {Number(temperature) + 1}</Text>
                                     <Text>{sky}</Text>
                                 </Box>
                             </Box>

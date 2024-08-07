@@ -7,5 +7,7 @@ export const GET_ADRESS = 'GET_ADRESS'
 export const SET_ADRESS_INFO = 'SET_ADRESS_INFO'
 export const ERROR_ADRESS = 'ERROR_ADRESS'
 
+export const GET_WEATHER = 'GET_WEATHER'
+
 export const GET_OPERATIONS = 'GET_OPERATIONS'
 export const SET_OPERATIONS = 'SET_OPERATIONS'

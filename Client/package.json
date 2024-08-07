@@ -47,5 +47,6 @@
     "reselect": "^4.1.8",
     "ts-loader": "^9.4.2",
     "yarn": "^1.22.19"
-  }
+  },
+  "proxy": "http://localhost:3001"
 }

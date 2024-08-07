@@ -1,4 +1,5 @@
-import React, { forwardRef, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
     Box,
     Button,
@@ -16,9 +17,11 @@ import {
     InputRightElement,
     IconButton,
     Tooltip,
+    FormErrorMessage
 } from "@chakra-ui/react";
 import { HiEye, HiEyeOff } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
+import { logInAction } from "../../actions";
 
 
 const LogInPage = () => {
@@ -32,15 +35,30 @@ const LogInPage = () => {
         }
     };
 
+    const dispatch = useDispatch()
+    const [password, setPassword] = useState("")
+    const [email, setEmail] = useState("")
+
+    const { token, message } = useSelector(store => store.user)
+
+    useEffect(() => {
+      if (token) {
+        navigate('/admin')
+      }
+      if (message) {
+        alert(message)
+      }
+    }, [token, message])
+
     const onLogIn = () => {
-        navigate('/admin');
+      dispatch(logInAction({ email, password }))
     }
 
     return (
         <Container maxW="lg" py={{ base: "12", md: "24" }} px={{ base: "0", sm: "8" }}>
             <Stack spacing="8">
                 <Stack spacing={{ base: "2", md: "3" }} textAlign="center">
-                    <Tooltip label='В данный момент авторизация доступна только администраторам. Напишите запрос на почту andrey-nikulin@mail.com, если хотите получить права администратора'>
+                    <Tooltip label='В данный момент авторизация доступна только администраторам. Напишите запрос на почту andrey_nikulin3@mail.ru, если хотите получить права администратора'>
                         <Heading>Вход</Heading>
                     </Tooltip>
                 </Stack>
@@ -53,12 +71,12 @@ const LogInPage = () => {
                 >
                     <Stack spacing="6">
                         <Stack spacing="5">
-                            <FormControl>
-                                <FormLabel htmlFor="email">Email</FormLabel>
-                                <Input id="email" type="email" />
+                            <FormControl >
+                                <FormLabel htmlFor="email">Электронная почта</FormLabel>
+                                <Input id="email" type="email" value={ email } onChange={ (e) => setEmail(e.target.value)}/>
                             </FormControl>
-                            <FormControl>
-                                <FormLabel htmlFor="password">Password</FormLabel>
+                            <FormControl >
+                                <FormLabel htmlFor="password">Пароль</FormLabel>
                                 <InputGroup>
                                     <InputRightElement>
                                         <IconButton
@@ -75,12 +93,15 @@ const LogInPage = () => {
                                         type={isOpen ? "text" : "password"}
                                         autoComplete="current-password"
                                         required
+                                        value={ password }
+                                        onChange={ (e) => setPassword(e.target.value)}
                                     />
                                 </InputGroup>
+                                {/* <FormErrorMessage>Невернай логин или пароль</FormErrorMessage> */}
                             </FormControl>
                         </Stack>
                         <Stack spacing="6">
-                            <Button onClick={ onLogIn }>Sign in</Button>
+                            <Button onClick={ onLogIn }>Войти</Button>
                             <HStack>
                                 <Divider />
                                 <Text fontSize="sm" whiteSpace="nowrap" color="muted">
